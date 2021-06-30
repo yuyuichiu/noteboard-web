@@ -1,0 +1,108 @@
+/* Import Font from Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: #f4f8ce;
+    font-family: "Roboto", "Calibri", sans-serif;
+}
+
+#addnote{
+    padding: 10px 15px;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background-color: rgb(161, 245, 105);
+    font-family: inherit;
+    border-radius: 3px;
+    color: rgb(47, 128, 0);
+    box-shadow: 0px 3px 0px rgb(58, 211, 28);
+    border: none;
+    cursor: pointer;
+}
+
+#addnote:active {
+    box-shadow: none;
+    transform: translateY(3px);
+}
+
+#note-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 80px 10px 30px 10px;
+}
+
+.text{
+    position: absolute;
+    left: 50%;
+    top: 25px;
+    text-align: center;
+    transform: translate(-50%,-50%);
+}
+
+.note{
+    width: 300px;
+    height: 400px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 10px;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
+}
+
+.note-bar{
+    position: relative;
+    height: 30px;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    background-color: #9AE45E;
+    cursor: move;
+}
+
+.note-bar > button{
+    margin: 7px;
+    font-size: 18px;
+    color: #fff;
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+}
+
+.colorPick {
+    position: absolute;
+    right: 30px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding: 0px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.note > .showcase{
+    padding: 20px;
+    font-family: inherit;
+    line-height: 1.5;
+    height: 90%;
+    overflow: auto;
+}
+
+.note > textarea{
+    outline: none;
+    padding: 20px;
+    font-family: inherit;
+    font-size: 20px;
+    width: 100%;
+    height: 90%;
+}
+
+.hidden{
+    display: none;
+}
