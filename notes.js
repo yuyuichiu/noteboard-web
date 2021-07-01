@@ -6,7 +6,7 @@ addBtn.addEventListener('click', () => { addNewNote() });
 
 // Initialize the page based on localStorage
 let savedData = JSON.parse(localStorage.getItem("notes"));
-console.log(savedData);
+
 if(savedData && savedData.length !== 0){
     savedData.forEach((noteContent) => { addNewNote(noteContent, false) });
 } else {
@@ -24,6 +24,8 @@ function addNewNote(config = {}, editMode = true){
     note.draggable = true;
     note.innerHTML = `
     <div class="note-bar" style="background-color: ${config.barColor || "#9AE45E"};">
+        <button class="move-left"><i class="fas fa-arrow-left"></i></button>
+        <button class="move-right"><i class="fas fa-arrow-right"></i></button>
         <button class="edit"><i class="fas fa-edit"></i></button>
         <button class="palette"><i class="fas fa-palette"></i></button>
         <button class="delete"><i class="fas fa-trash-alt"></i></button>
@@ -48,10 +50,12 @@ function addNewNote(config = {}, editMode = true){
     let toggleEdit = function() {
         showcase.classList.toggle('hidden');
         textArea.classList.toggle('hidden');
+        note.draggable = textArea.classList.contains('hidden');
     };
 
     editBtn.addEventListener('click', () => { toggleEdit() });
-    note.addEventListener('dblclick', () => { toggleEdit() });
+    showcase.addEventListener('dblclick', () => { toggleEdit() });
+    textArea.addEventListener('dblclick', () => { toggleEdit() });
     if(!editMode){ toggleEdit() }
 
     // The delete functionality
@@ -67,7 +71,31 @@ function addNewNote(config = {}, editMode = true){
         notebar.style.backgroundColor = colorInput.value;
         updateLocalStorage();
     })
+
+    // Swap notes functionality
+    let moveNote = function(current, direction = "left") {
+        // determine target to swap
+        let toSwap = direction === "left" ? current.previousSibling : current.nextSibling;
+
+        // do nothing if the target is not an actual note
+        if(!toSwap || !toSwap.classList){ return }
+
+        // swap by insertBefore()
+        if(direction === 'left'){
+            noteContainer.insertBefore(current, toSwap);
+        } else {
+            // treat it as insertAfter, JS does not have that exact function
+            noteContainer.insertBefore(current, toSwap.nextSibling)
+        }
+
+        updateLocalStorage();
+    }
+
+    const leftArrow = note.querySelector('.move-left');
+    leftArrow.addEventListener('click', () => { moveNote(note, "left"); })
     
+    const rightArrow = note.querySelector('.move-right');
+    rightArrow.addEventListener('click', () => { moveNote(note, "right"); })
 
     // Input functionality -- update showcase text to textarea text
     textArea.addEventListener('input', (e) => {

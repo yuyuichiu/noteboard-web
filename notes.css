@@ -63,7 +63,7 @@ body{
     align-items: flex-start;
     justify-content: flex-end;
     background-color: #9AE45E;
-    cursor: move;
+    /* cursor: move; */
 }
 
 .note-bar > button{
@@ -73,6 +73,10 @@ body{
     background-color: inherit;
     border: none;
     cursor: pointer;
+}
+
+.note-bar > button:hover {
+    color: rgb(233, 255, 107);
 }
 
 .colorPick {
